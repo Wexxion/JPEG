@@ -6,7 +6,7 @@ using JPEG.Utilities;
 
 namespace JPEG
 {
-	class HuffmanNode
+    public class HuffmanNode
 	{
 		public byte? LeafLabel { get; set; }
 		public int Frequency { get; set; }
@@ -45,6 +45,7 @@ namespace JPEG
 
 		public void Add(BitsWithLength bitsWithLength)
 		{
+            if (bitsWithLength == null) return;
 			var bitsCount = bitsWithLength.BitsCount;
 			var bits = bitsWithLength.Bits;
 
@@ -153,24 +154,30 @@ namespace JPEG
 		private static HuffmanNode BuildHuffmanTree(int[] frequences)
 		{
 			var nodes = GetNodes(frequences);
-			
-			while(nodes.Count() > 1)
+			while(nodes.Count > 1)
 			{
-				var firstMin = nodes.MinOrDefault(node => node.Frequency);
-				nodes = nodes.Without(firstMin);
-				var secondMin = nodes.MinOrDefault(node => node.Frequency);
-				nodes = nodes.Without(secondMin);
-				nodes = nodes.Concat(new HuffmanNode {Frequency = firstMin.Frequency + secondMin.Frequency, Left = secondMin, Right = firstMin }.ToEnumerable());
+			    var firstMin = nodes.Dequeue();
+			    var secondMin = nodes.Dequeue();
+                nodes.SortedInsert(new HuffmanNode { Frequency = firstMin.Frequency + secondMin.Frequency, Left = secondMin, Right = firstMin });
+			    //var firstMin = nodes.MinOrDefault(node => node.Frequency);
+			    //nodes = nodes.Without(firstMin);
+			    //var secondMin = nodes.MinOrDefault(node => node.Frequency);
+			    //nodes = nodes.Without(secondMin);
+			    //nodes = nodes.Concat(new HuffmanNode {Frequency = firstMin.Frequency + secondMin.Frequency, Left = secondMin, Right = firstMin }.ToEnumerable());
 			}
 			return nodes.First();
 		}
 
-		private static IEnumerable<HuffmanNode> GetNodes(int[] frequences)
+		private static LinkedList<HuffmanNode> GetNodes(int[] frequences)
 		{
-			return Enumerable.Range(0, byte.MaxValue + 1)
-				.Select(num => new HuffmanNode {Frequency = frequences[num], LeafLabel = (byte) num})
-				.Where(node => node.Frequency > 0)
-				.ToArray();
+            var res= new LinkedList<HuffmanNode>();
+		    var nodes = Enumerable.Range(0, byte.MaxValue + 1)
+		        .Select(num => new HuffmanNode {Frequency = frequences[num], LeafLabel = (byte) num})
+		        .Where(node => node.Frequency > 0)
+		        .OrderBy(node => node.Frequency);
+		    foreach (var node in nodes)
+		        res.AddLast(node);
+		    return res;
 		}
 
 		private static int[] CalcFrequences(IEnumerable<byte> data)

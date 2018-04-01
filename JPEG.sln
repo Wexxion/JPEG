@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPEG", "JPEG\JPEG.csproj", "{36AE9EBC-C20B-4664-83AD-74B6EBDB1560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPEG Tests", "JPEG Tests\JPEG Tests.csproj", "{295A5184-E378-4E1C-87E5-FBE066AB3520}"
+	ProjectSection(ProjectDependencies) = postProject
+		{36AE9EBC-C20B-4664-83AD-74B6EBDB1560} = {36AE9EBC-C20B-4664-83AD-74B6EBDB1560}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{36AE9EBC-C20B-4664-83AD-74B6EBDB1560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36AE9EBC-C20B-4664-83AD-74B6EBDB1560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36AE9EBC-C20B-4664-83AD-74B6EBDB1560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{295A5184-E378-4E1C-87E5-FBE066AB3520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295A5184-E378-4E1C-87E5-FBE066AB3520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295A5184-E378-4E1C-87E5-FBE066AB3520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{295A5184-E378-4E1C-87E5-FBE066AB3520}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

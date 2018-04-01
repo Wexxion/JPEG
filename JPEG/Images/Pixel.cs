@@ -9,7 +9,7 @@ namespace JPEG.Images
 
         public Pixel(double firstComponent, double secondComponent, double thirdComponent, PixelFormat pixelFormat)
         {
-            if (!new[]{PixelFormat.RGB, PixelFormat.YCbCr}.Contains(pixelFormat))
+            if (pixelFormat != PixelFormat.RGB && pixelFormat != PixelFormat.YCbCr)
                 throw new FormatException("Unknown pixel format: " + pixelFormat);
             format = pixelFormat;
             if (pixelFormat == PixelFormat.RGB)
